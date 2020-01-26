@@ -1,0 +1,159 @@
+---
+title: "Midterm: Due November 9 at 9am"
+output:
+    html_document:
+        theme: readable
+        highlight: zenburn
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+--- 
+**Note: This is an individual exam that you should complete on your own. Make sure to push your answers to GitLab before 9am, November 9. Exams with time stamps after this time will receive penalties. Good luck!**
+
+
+The folder "smart" in the "data" folder contains energy use data for 5,515 households in London, UK. This data was collected by installing a smart meter in each household that continuously records the total energy consumption of the household. The data is recorded at 30 minute intervals, e.g., a value of 0.15 would mean that the houshold used 0.15 kWh in that 30 minute interval (where kWh is kilowatt hour - a measure of energy). 
+
+The raw data is organized into 112 individual csv files where each csv file contains data for (approximately) 50 households. The data is available for one month - January 2013. The data dictionary is 
+
+- LCLid: Household code
+- tstp : Time stamp 
+- energy: Energy consumption
+
+The households are a random sample from London. During the observation period, the households were randomly allocated to two groups: 
+
+- About 20% of the households were subject to a varying energy price scheme called Dynamic Time of Use. The prices were given a day ahead via the smart meter display or text message to mobile phone. Customers were issued High (67.20 pence per kWh), Low (3.99 pence per kWh) or normal (11.76 pence per kWh) price signals and the times of day these applied. The dates/times and the price signal schedule is availaible as part of this dataset. 
+
+- All non-Time of Use customers (about 80%) were on a flat price of 14.228 pence per kWh. 
+
+For privacy reasons the data doesn't contain exact demographic information about the households. Instead the households were allocated into 17 segments (called ACORN groups) - each household belongs to only one of these groups. Information about the housholds is contained in the _information_households.csv_ file:
+
+- LCLid: Household code
+- stdorToU : Is the household in the Dynamic Time of Use ("ToU") group or the fixed price group ("Std")?
+- Acorn: Which segment is household in?
+- Acorn_grouped: A measure of the relative affluence of the household's ACORN group
+- file: Which of the original 112 files was the household contained in?
+
+
+### Part A
+
+<span style="color:blue">
+Visualize the aggregate daily energy consumption (total for all households) for the one month time period. Is energy consumption stable throughout the period or would you say there are large fluctuations in daily energy consumption for these 5,515 households?
+</span>
+
+**WRITE CODE AND COMMENTS HERE**
+
+
+### Part B
+
+<span style="color:blue">
+Fluctuations in daily energy consumption may be driven by day of the week. Visualize the average total energy consumption for each weekday (i.e., the average total on Mondays, Tuesdays etc.). Is total energy consumption stable throughout the week? How would you explain the pattern you see?
+</span>
+
+
+
+**WRITE CODE AND COMMENTS HERE**
+
+
+### Part C
+
+<span style="color:blue">
+There is a common belief that energy use differs across days of the week, mainly due to daytime use (the argument stating that consumers tend to be home at night on weekdays but are only home during the day on Saturday and Sunday) Can you find evidence in the data to support this belief?
+</span>
+
+
+**WRITE CODE AND COMMENTS HERE**
+
+
+### Part D
+<span style="color:blue">
+Rather than look at the aggregate consumption, we can also study variation in consumption across households. Let's compare differences in energy consumption for high energy consumption households and low energy consumption households: 
+</span>
+
+<span style="color:blue">
+-  Calculate total energy consumption over the month for each household. 
+</span>
+
+<span style="color:blue">
+- Then divide the households into deciles based on this monthly total (i.e., create 10 groups with the same number of households in each group where the first group will have the 10% households with the lowest total energy use, the next group will have households with energy use in the 10%-20% range and so on (Hint: **ntile(x,10)** will create 10 equal sized groups based on the size of x). 
+</span>
+
+<span style="color:blue">
+- Calculate the average monthly energy consumption within each group (If you have created the groups correctly, the should have (approximately) the same number of households within each group, but the average consumption should be very different.). 
+</span>
+
+<span style="color:blue">
+- How big are these differences across groups? Find a way to visualize these differences.
+</span>
+
+
+**WRITE CODE AND COMMENTS HERE**
+
+
+### Part E
+
+<span style="color:blue">
+By definition the groups you created in part D have large differences in average total consumption levels. Do they also have different energy consumption profiles throughout the day? By "consumption profile" we simply mean how consumption is distributed throughout the hours of the day (average consumption at 1am, 2am etc). Are the shapes of these profiles the same for the 10 groups? Visualize these 10 profiles and compare their shapes.  
+</span>
+
+
+**WRITE CODE AND COMMENTS HERE**
+
+
+### Part F
+
+<span style="color:blue">
+Does average monthly energy consumption vary by ACORN segment? Visualize your result.
+</span>
+
+
+**WRITE CODE AND COMMENTS HERE**
+
+
+### Part G
+
+<span style="color:blue">
+Recall from above that households were randomized into two groups: one that faced varying energy prices (Time of Use or ToU) and one that faced a fixed energy price. The energy prices were listed above. The file *Tariffs.csv* contain which of the three energy price levels (Low, Normal, High) was active at each half hour time period for all of 2013. If for example, it says 'High' on Jan 8 at 1:30am, then all the ToU households paid 67.2 pence per kWh for that half hour period (while the Std households paid their fixed price of 14.228 pence).
+</span>
+
+<span style="color:blue">
+Calculate the average (across housholds) monthly energy consumption and energy cost (i.e., spending) for the two groups (ToU and Std). Which group used the least amount of energy and which group had the lowest cost? 
+</span>
+
+
+
+**WRITE CODE AND COMMENTS HERE**
+
+
+### Part H
+
+<span style="color:blue">
+How do the average energy profiles (energy use throughout the hours of the day) differ between the ToU and Std households? In particular, do the ToU households INCREASE their energy use when prices are low and decrease use when prices are high at all hours of the day? Another way of asking this is: Are the ToU households equally price sensitive at all hours of the day? How does this compare to the profile of the Std households?  
+</span>
+
+
+**WRITE CODE AND COMMENTS HERE**
+
+
+### Part I
+
+<span style="color:blue">
+The *Acorn_grouped* variable in the _information_households.csv_ is a rough measure of a household's income level ('Adversity', 'Comfortable' and 'Affluent'). Each household belongs to one of these three categories (you may ignore the values 'ACORN-' and 'ACORN-U' here - you can just drop those households for this question). Would you say that income groups have very different energy consumption based on this classification? 
+</span>
+
+
+**WRITE CODE AND COMMENTS HERE**
+
+### Part J
+
+<span style="color:blue">
+Suppose we wanted a more precise statistic on how household income impacts energy use than the rough classification above. Ideally, if we had each household's income level, we could get this by simply averaging consumption for each income level. The problem is that the data doesn't contain exact household demographic information (for privacy reasons). However, we can get measures of demographics within each of the ACORN groups. The file *acornInc.csv* contains information on the income distribution within each ACORN group. The values are interpreted as follows: the value 304 for the ACORN-A group for income category 80K-100K means that compared to the average household in the UK, ACORN-A households are 3.04 times as likely to belong to this income category. Using this information, provide an estimate for the average monthly energy consumption for each income group. Do you get something radically different than in part H? (as above you may drop the ACORN-U households for this question)
+</span>
+
+
+**WRITE CODE AND COMMENTS HERE**
+
+
+
